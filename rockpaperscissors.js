@@ -1,11 +1,45 @@
-const options = ["rock", "paper", "scissors"];
 let playerWinCount = 0;
 let computerWinCount = 0;
-game();
+
+const analogs = {
+  rock: "✊",
+  paper: "✋",
+  scissors: "✌",
+};
 
 function getComputerChoice() {
+  const options = ["rock", "paper", "scissors"];
   let computersChoice = Math.floor(3 * Math.random());
   return options[computersChoice];
+}
+
+const buttons = document.querySelectorAll("card");
+buttons.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    console.log(e);
+    if (playerWinCount < 5 && computerWinCount < 5) {
+      let computerChoice = getComputerChoice();
+      const won = playRound(btn.id, computerChoice);
+      const answer = document.querySelector("div");
+      answer.innerText = won;
+      displayChosen(btn.id, computerChoice);
+      manageWinCondition(won);
+    }
+  });
+});
+
+function manageWinCondition(won) {
+  const p = document.querySelector("#playerWinCount");
+  const c = document.querySelector("#computerWinCount");
+  p.innerText = "Player won: " + playerWinCount;
+  c.innerText = "Computer won: " + computerWinCount;
+}
+
+function displayChosen(playerSelection, computerSelection) {
+  const player = document.getElementById("player-chose");
+  const computer = document.getElementById("computer-chose");
+  player.innerText = analogs[playerSelection];
+  computer.innerText = analogs[computerSelection];
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -35,27 +69,4 @@ function playRound(playerSelection, computerSelection) {
     computerWinCount++;
     return "Computer wins!";
   }
-}
-
-function game() {
-  console.log("Welcome to Rock Paper Scissors!");
-  console.log("Options are rock, paper, or scissors.");
-
-  for (let i = 0; i < 5; i++) {
-    let userInput = prompt("Enter your choice (must be a valid input): ");
-    userInput = userInput.toLowerCase();
-    while (!options.includes(userInput)) {
-      console.log("Wrong input! Try again: ");
-      userInput = prompt("Enter your choice (must be a valid input): ");
-      userInput = userInput.toLowerCase();
-    }
-
-    let compChoice = getComputerChoice();
-    console.log("Player's choice was: " + userInput);
-    console.log("Computer's choice was " + compChoice);
-    console.log(playRound(userInput, compChoice));
-  }
-
-  console.log("Player won: " + playerWinCount);
-  console.log("Computer won: " + computerWinCount);
 }
