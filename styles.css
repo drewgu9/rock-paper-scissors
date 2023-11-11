@@ -1,0 +1,31 @@
+body {
+  background-color: rgb(6, 166, 137);
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  margin: 0px;
+}
+
+html {
+  height: 100%;
+}
+
+main {
+  align-self: center;
+  margin-top: -150px;
+}
+
+h1 {
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: grey;
+}
+
+section {
+  font-size: 100px;
+}
+
+div {
+  text-align: center;
+  font-size: 50px;
+}
